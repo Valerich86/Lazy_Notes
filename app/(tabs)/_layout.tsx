@@ -1,11 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { Tabs } from "expo-router";
 import { Colors } from "../../constants/Colors";
 import React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import Avatar from "../../components/Avatar";
 
 const TabsLayout = () => {
   return (

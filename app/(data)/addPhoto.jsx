@@ -19,6 +19,7 @@ import { Colors } from "../../constants/Colors";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Entypo from '@expo/vector-icons/Entypo';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5'
+import ColorChangeInput from "../../components/ColorChangeInput";
 
 const globalStyles = require("../../constants/GlobalStyles");
 
@@ -112,46 +113,7 @@ const AddPhoto = () => {
             </View>
           )}
         </TouchableOpacity>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              marginTop: 15,
-            }}
-          >
-            <Text style={styles.text}>Цвет</Text>
-            <View
-              style={{
-                width: "80%",
-                height: 15,
-                backgroundColor: colorIndicator,
-                borderRadius: 10,
-              }}
-            ></View>
-          </View>
-          <View style={styles.bottomBlock}>
-            <TouchableOpacity onPress={() => colorChangeSubmit("red")}>
-              <View
-                style={[styles.colorPicker, { backgroundColor: "red" }]}
-              ></View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => colorChangeSubmit("violet")}>
-              <View
-                style={[styles.colorPicker, { backgroundColor: "violet" }]}
-              ></View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => colorChangeSubmit("green")}>
-              <View
-                style={[styles.colorPicker, { backgroundColor: "green" }]}
-              ></View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => colorChangeSubmit("blue")}>
-              <View
-                style={[styles.colorPicker, { backgroundColor: "blue" }]}
-              ></View>
-            </TouchableOpacity>
-          </View>
+        <ColorChangeInput colorChangeSubmit={colorChangeSubmit} colorIndicator={colorIndicator}/>
           <CustomButton
             containerStyles="{marginTop: 30, width: '100%'}"
             title="Сохранить"

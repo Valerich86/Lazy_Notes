@@ -4,37 +4,19 @@ import React, {useState} from 'react'
 import Entypo from '@expo/vector-icons/Entypo'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import CustomButton from './CustomButton'
+import ModalView from './ModalView'
 
 const ItemHeader = ({handleUpdatePress, handleReturnPress, handleDeletePress}) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <View style={{position: 'static', width: '100%'}}>
-      <Modal
-        animationType='slide'
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={{textAlign: 'center', fontSize: 25}}>Вы уверены?</Text>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-              <CustomButton 
-                containerStyles = "{marginTop: 25, width: '45%'}"
-                title = 'Отмена'
-                handlePress = {() => setModalVisible(false)}
-              />
-              <CustomButton 
-                containerStyles = "{marginTop: 25, width: '45%', backgroundColor: 'red'}"
-                title = 'Удалить'
-                handlePress = {handleDeletePress}
-              />
-            </View>
-          </View>
-        </View>
-      </Modal>
+      <ModalView
+        isRemove={true}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        handleAgreePress={handleDeletePress}
+      />
       <View style={styles.container}>
         <TouchableOpacity onPress={handleReturnPress}>
           <Entypo name="back" size={40} color="gray" />

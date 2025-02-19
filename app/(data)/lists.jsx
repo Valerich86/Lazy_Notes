@@ -1,13 +1,6 @@
-import {
-  StyleSheet,
-  Text,
-  FlatList,
-  View,
-  ActivityIndicator,
-} from "react-native";
+import { Text, FlatList, View, ActivityIndicator } from "react-native";
 import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Header from "../../components/Header";
 import ListHeader from "../../components/ListHeader";
 import ListCard from "../../components/ListCard";
 import { getLists } from "../../web/appwrite";
@@ -63,7 +56,9 @@ const Lists = () => {
                 </Text>
               )}
               showsVerticalScrollIndicator={false}
-              ListHeaderComponent={() => <SearchInput searchDirectory='/search-lists'/>}
+              ListHeaderComponent={() => (
+                <SearchInput searchDirectory="/search-lists" />
+              )}
             />
           </View>
         </>
@@ -73,5 +68,3 @@ const Lists = () => {
 };
 
 export default Lists;
-
-const styles = StyleSheet.create({});

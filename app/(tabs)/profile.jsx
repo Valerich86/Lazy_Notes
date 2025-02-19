@@ -6,6 +6,7 @@ import Avatar from '../../components/Avatar';
 import { signOut, getNotes, getLists, getImages } from '../../web/appwrite';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { router, Link } from 'expo-router';
+import ModalView from '../../components/ModalView';
 
 const globalStyles = require('../../constants/GlobalStyles')
 
@@ -16,9 +17,11 @@ const Profile = () => {
   const [notes, setNotes] = useState(0)
   const [lists, setLists] = useState(0)
   const [photos, setPhotos] = useState(0)
+  const [modalVisible, setModalVisible] = useState(false)
 
   const logout = async () => {
     await signOut()
+    setModalVisible(false)
     setUser(null)
     setIsLoggedIn(false)
     router.replace('/')
@@ -66,10 +69,16 @@ const Profile = () => {
               <Text style={styles.text}>{`Изображения: ${photos}`}</Text>
             </Link>
           </View>
-          <TouchableOpacity onPress={logout} style={{flexDirection: 'row', alignItems: 'center'}}>
+          <TouchableOpacity onPress={() => setModalVisible(true)} style={{flexDirection: 'row', alignItems: 'center'}}>
             <MaterialCommunityIcons name="logout" size={40} color="red" />
             <Text style={styles.text2}>Выйти из профиля</Text>
           </TouchableOpacity>
+          <ModalView
+            isRemove={true}
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            handleAgreePress={logout}
+          />
         </View>
       </>)}
     </SafeAreaView>
