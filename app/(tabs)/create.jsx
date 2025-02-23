@@ -12,17 +12,21 @@ const Create = () => {
     <SafeAreaView style={globalStyles.mainContainer}>
       <Header />
       <View style={styles.container}>
+        <Link href="/createTodo">
+          <MaterialIcons name="add-task" size={70} color="#6ca587" />
+          <Text style={globalStyles.header}>Добавить дело</Text>
+        </Link>
         <Link href="/createNote">
-          <MaterialCommunityIcons name="note-plus" size={70} color="#6ca587" />
           <Text style={globalStyles.header}>Добавить заметку</Text>
+          <MaterialCommunityIcons name="note-plus" size={70} color="#6ca587" />
         </Link>
         <Link href="/createList">
-          <Text style={globalStyles.header}>Добавить список</Text>
           <MaterialIcons name="playlist-add" size={90} color="#6ca587" />
+          <Text style={globalStyles.header}>Добавить список</Text>
         </Link>
         <Link href="/addPhoto">
-          <MaterialIcons name="add-photo-alternate" size={80} color="#6ca587" />
           <Text style={globalStyles.header}>Добавить фото</Text>
+          <MaterialIcons name="add-photo-alternate" size={80} color="#6ca587" />
         </Link>
       </View>
     </SafeAreaView>

@@ -16,6 +16,7 @@ export const config = {
   notesCollectionId: "67a8693100058c88c878",
   imagesCollectionId: "67add5ff003e24d45654",
   listsCollectionId: "67ab7a6400339a1beb24",
+  todosCollectionId: '67b875cb001b61745165',
   storageId: "6793c286002c25f316b7",
 };
 
@@ -28,6 +29,7 @@ const {
   notesCollectionId,
   imagesCollectionId,
   listsCollectionId,
+  todosCollectionId,
   storageId,
 } = config;
 
@@ -373,3 +375,80 @@ export const deleteImage = async (imageId) => {
     throw new Error();
   }
 };
+
+export const getTodos = async (userId, atr, val) => {
+  try {
+    let result = await databases.listDocuments(databaseId, todosCollectionId, [
+      Query.equal("creator", userId),
+      Query.orderAsc("completeBefore"),
+      Query.orderAsc("priority"),
+      atr ?
+      Query.equal(atr, val) :
+      Query.limit(7)
+    ]);
+    return result.documents;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const deleteTodo = async (todoId) => {
+  try {
+    await databases.deleteDocument(databaseId, todosCollectionId, todoId);
+  } catch (error) {
+    throw new Error();
+  }
+};
+
+export const getDatesWithHighPriorityTodos = async (userId) => {
+  let highPriority = []
+  try {
+    let result = await databases.listDocuments(databaseId, todosCollectionId, [
+      Query.equal("creator", userId),
+      Query.equal('priority', 'Высокий') 
+    ]);
+    result.documents.forEach(element => {
+      for (key in element) {
+        if (key === 'completeBefore')
+          highPriority.push(element[key])
+      }
+    });
+    return highPriority;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const getAllDatesWithTodos = async (userId) => {
+  let allDates = []
+  try {
+    let result = await databases.listDocuments(databaseId, todosCollectionId, [
+      Query.equal("creator", userId),
+    ]);
+    result.documents.forEach(element => {
+      for (key in element) {
+        if (key === 'completeBefore')
+          allDates.push(element[key])
+      }
+    });
+    return allDates;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const addTodo = async (form) => {
+  try {
+    await databases.createDocument(databaseId, todosCollectionId, ID.unique(), {
+      category: form.category,
+      text: form.text,
+      priority: form.priority,
+      completeBefore: form.completeBefore,
+      creator: form.userId,
+    });
+  } catch (error) {
+    throw new Error();
+  }
+};
+
+

@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react'
 import Header from '../../components/Header';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import Avatar from '../../components/Avatar';
-import { signOut, getNotes, getLists, getImages } from '../../web/appwrite';
+import { signOut, getNotes, getLists, getImages, getTodos } from '../../web/appwrite';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { router, Link } from 'expo-router';
 import ModalView from '../../components/ModalView';
@@ -14,6 +14,7 @@ const Profile = () => {
   const {user, setUser, setIsLoggedIn} = useGlobalContext()
   const [isLoading, setIsLoading] = useState(true);
   const [sortedBy, setSortedBy] = useState("$createdAt");
+  const [todos, setTodos] = useState(0)
   const [notes, setNotes] = useState(0)
   const [lists, setLists] = useState(0)
   const [photos, setPhotos] = useState(0)
@@ -30,6 +31,8 @@ const Profile = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
+      const todos = await getTodos(user.$id, '');
+      setTodos(todos?.length || 0);
       const notes = await getNotes(user.$id, sortedBy);
       setNotes(notes?.length || 0);
       const lists = await getLists(user.$id, sortedBy);
@@ -59,7 +62,10 @@ const Profile = () => {
             <Text style={globalStyles.header}>{user.username}</Text>
           </View>
           <View style={{justifyContent: 'flex-start'}}>
-            <Link href={'/notes'}>
+            <Link href={'/todos'}>
+              <Text style={styles.text}>{`Дела: ${todos}`}</Text>
+            </Link>
+            <Link href={'/notes'} style={{marginTop: 20}}>
               <Text style={styles.text}>{`Заметки: ${notes}`}</Text>
             </Link>
             <Link href={'/lists'} style={{marginTop: 20}}>

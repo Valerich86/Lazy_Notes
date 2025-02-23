@@ -16,11 +16,11 @@ module.exports = StyleSheet.create({
   },
   header: {
     fontFamily: 'Caveat_600SemiBold',
-    fontSize: 40,
+    fontSize: 35,
     textAlign: 'center',
   },
   folderHeader: {
     fontFamily: 'Caveat_600SemiBold',
-    fontSize: 30,
+    fontSize: 20,
   }
 })

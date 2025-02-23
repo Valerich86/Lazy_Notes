@@ -9,52 +9,50 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import { router } from "expo-router";
-import { createNote } from "../../web/appwrite";
+import { addTodo } from "../../web/appwrite";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { Colors } from "../../constants/Colors";
+import { categories } from "../../constants/Categories";
+import { Dropdown } from "react-native-material-dropdown";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Entypo from '@expo/vector-icons/Entypo'
-import ColorChangeInput from "../../components/ColorChangeInput";
+import CustomCalendar from "../../components/CustomCalendar";
 
 const globalStyles = require("../../constants/GlobalStyles");
 
-const CreateNote = () => {
+const CreateTodo = () => {
   const { user } = useGlobalContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [colorIndicator, setColorIndicator] = useState("");
+  const today = new Date().toLocaleString().substring(0, 10)
 
   const [form, setform] = useState({
-    title: "Новая заметка",
+    priority: "Низкий",
     text: "",
-    color: "black",
+    category: categories[0],
+    completeBefore: today
   });
 
   const handleFormSubmit = async () => {
     if (form.text === "") {
-      return Alert.alert("Нужно записать текст заметки");
+      return Alert.alert("Нужно записать текст задачи");
     }
     setIsSubmitting(true);
     try {
-      await createNote({ ...form, userId: user.$id });
-      router.push("/notes");
+      await addTodo({ ...form, userId: user.$id });
+      router.push("/todos");
     } catch (error) {
       Alert.alert("Упс!", error.message);
     } finally {
       setIsSubmitting(false);
       setform({
-        title: "Новая заметка",
+        priority: "Низкий",
         text: "",
-        color: "black",
+        category: categories[0],
+        completeBefore: today
       });
     }
-  };
-
-  const colorChangeSubmit = (e) => {
-    setform({ ...form, color: e });
-    setColorIndicator(e);
   };
 
   return (
@@ -74,22 +72,21 @@ const CreateNote = () => {
           <TouchableOpacity onPress={() => router.push('/notes')}>
             <Entypo name="back" size={40} color="gray" />
           </TouchableOpacity>
-          <Text style={globalStyles.header}> Новая заметка </Text>
+          <Text style={globalStyles.header}> Новая задача </Text>
           <TouchableOpacity
-            onPress={() => setform({ title: "", text: "", color: "" })}
+            onPress={() => setform({
+              priority: "Низкий",
+              text: "",
+              category: categories[0],
+              completeBefore: today
+            })}
           >
             <MaterialIcons name="cleaning-services" size={24} color="red" />
           </TouchableOpacity>
         </View>
         <View style={styles.container}>
-          <FormField
-            title="Заголовок"
-            subtitle='(уникальный заголовок поможет легко отыскать нужную заметку)'
-            value={form.title}
-            handleChangeText={(e) => {
-              setform({ ...form, title: e });
-            }}
-          />
+          <Text style={styles.text}>Приоритет</Text>
+          <Dropdown/>
           <Text style={styles.text}>Текст</Text>
           <View style={styles.inputField}>
             <TextInput
@@ -103,7 +100,6 @@ const CreateNote = () => {
               multiline={true}
             />
           </View>
-          <ColorChangeInput colorChangeSubmit={colorChangeSubmit} colorIndicator={colorIndicator}/>
           <CustomButton
             containerStyles="{marginTop: 45, width: '100%'}"
             title="Сохранить"
@@ -116,7 +112,7 @@ const CreateNote = () => {
   );
 };
 
-export default CreateNote;
+export default CreateTodo;
 
 const styles = StyleSheet.create({
   container: {

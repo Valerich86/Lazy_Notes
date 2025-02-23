@@ -54,7 +54,10 @@ const ModalView = ({
                 <CustomButton
                   containerStyles={!isRemove ? "{width: '45%'}" : "{width: '45%', backgroundColor: 'red'}"}
                   title="Готово"
-                  handlePress={handleAgreePress}
+                  handlePress={() => {
+                    setModalVisible(false)
+                    handleAgreePress()
+                  }}
                 />
               </View>
             </View>

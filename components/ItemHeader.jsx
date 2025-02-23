@@ -1,9 +1,7 @@
-import { StyleSheet, Text, View, TouchableOpacity, Modal } from 'react-native'
-import { router } from 'expo-router'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React, {useState} from 'react'
 import Entypo from '@expo/vector-icons/Entypo'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
-import CustomButton from './CustomButton'
 import ModalView from './ModalView'
 
 const ItemHeader = ({handleUpdatePress, handleReturnPress, handleDeletePress}) => {

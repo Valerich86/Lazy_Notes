@@ -45,7 +45,7 @@ const App = () => {
             </ImageBackground>
           </Animated.View>
           <CustomButton
-            title="Войти"
+            title="Продолжить с почтой"
             containerStyles="{width: '100%', marginTop: 50}"
             handlePress={() => router.push("/sign-in")}
           />
