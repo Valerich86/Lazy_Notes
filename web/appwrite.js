@@ -392,6 +392,17 @@ export const getTodos = async (userId, atr, val) => {
   }
 };
 
+export const getAllTodos = async (userId) => {
+  try {
+    let result = await databases.listDocuments(databaseId, todosCollectionId, [
+      Query.equal("creator", userId),
+    ]);
+    return result.documents;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 export const deleteTodo = async (todoId) => {
   try {
     await databases.deleteDocument(databaseId, todosCollectionId, todoId);
@@ -437,14 +448,14 @@ export const getAllDatesWithTodos = async (userId) => {
   }
 };
 
-export const addTodo = async (form) => {
+export const createTodo = async (userId, priority, category, text, completeBefore) => {
   try {
     await databases.createDocument(databaseId, todosCollectionId, ID.unique(), {
-      category: form.category,
-      text: form.text,
-      priority: form.priority,
-      completeBefore: form.completeBefore,
-      creator: form.userId,
+      category: category,
+      text: text,
+      priority: priority,
+      completeBefore: completeBefore,
+      creator: userId,
     });
   } catch (error) {
     throw new Error();

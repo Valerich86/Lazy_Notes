@@ -6,3 +6,8 @@ export const categories = [
   "Учёба",
   "Другое",
 ];
+
+export const priorities = [
+  "Низкий",
+  "Высокий"
+]

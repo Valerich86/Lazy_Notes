@@ -108,7 +108,7 @@ export default function CustomCalendar({
               markedDates={getMarked()}
               onDayPress={(day) => {
                 setSelected(day.dateString);
-                onDaySelect(day);
+                onDaySelect(day.dateString);
                 setCalendarVisible(false);
               }}
             />

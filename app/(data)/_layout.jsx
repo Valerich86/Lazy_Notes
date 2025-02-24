@@ -20,7 +20,8 @@ const DataLayout = () => {
         <Stack.Screen name='search-photos/[query]' options={{headerShown: false}}/> 
         <Stack.Screen name='get-photo/[photo]' options={{headerShown: false}}/> 
         <Stack.Screen name='addPhoto' options={{headerShown: false}}/> 
-        <Stack.Screen name='createTodo' options={{headerShown: false}}/> 
+        <Stack.Screen name='addTodo' options={{headerShown: false}}/> 
+        {/* <Stack.Screen name='createTodo' options={{headerShown: false}}/>  */}
       </Stack>
     </>
   )

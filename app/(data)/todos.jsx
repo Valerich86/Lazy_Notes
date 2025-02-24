@@ -20,8 +20,8 @@ const Todos = () => {
   const [atribut, setAtribut] = useState('');
   const [value, setValue] = useState('');
   const [data, setData] = useState(null);
-  const [allDatesWithTodos, setAllDatesWithTodos] = useState([])
-  const [datesWithHighPriorityTodos, setDatesWithHighPriorityTodos] = useState([])
+  const [allDatesWithTodos, setAllDatesWithTodos] = useState([]);
+  const [datesWithHighPriorityTodos, setDatesWithHighPriorityTodos] = useState([]);
   const [update, setUpdate] = useState(false);
   const { user } = useGlobalContext();
 
@@ -69,21 +69,20 @@ const Todos = () => {
           <View style={{width: '100%', paddingTop: 50, paddingBottom: 50}}>
             <ListHeader
               title={header}
-              handleCreate={() => router.push("/createNote")}
               handleReturnPress={() => {
                 router.push("/home");
               }}
               handleChangeDate={(date) => {
-                setHeader(`Выполнить до ${date.dateString}`)
+                setHeader(`Выполнить до ${date}`)
                 setAtribut('completeBefore');
-                setValue(date.dateString);
+                setValue(date);
               }}
               handleChangeOption={(atr, val, title) => {
                 setHeader(title)
                 setAtribut(atr);
                 setValue(val);
               }}
-              handleCreateTodoPress={() => router.push('/createTodo')}
+              handleCreateTodoPress={() => router.push('/addTodo')}
               allDatesWithTodos={allDatesWithTodos}
               datesWithHighPriorityTodos={datesWithHighPriorityTodos}
             />

@@ -12,7 +12,7 @@ const Create = () => {
     <SafeAreaView style={globalStyles.mainContainer}>
       <Header />
       <View style={styles.container}>
-        <Link href="/createTodo">
+        <Link href="/addTodo">
           <MaterialIcons name="add-task" size={70} color="#6ca587" />
           <Text style={globalStyles.header}>Добавить дело</Text>
         </Link>

@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react'
 import Header from '../../components/Header';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import Avatar from '../../components/Avatar';
-import { signOut, getNotes, getLists, getImages, getTodos } from '../../web/appwrite';
+import { signOut, getNotes, getLists, getImages, getAllTodos } from '../../web/appwrite';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { router, Link } from 'expo-router';
 import ModalView from '../../components/ModalView';
@@ -31,7 +31,7 @@ const Profile = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const todos = await getTodos(user.$id, '');
+      const todos = await getAllTodos(user.$id);
       setTodos(todos?.length || 0);
       const notes = await getNotes(user.$id, sortedBy);
       setNotes(notes?.length || 0);
@@ -53,7 +53,7 @@ const Profile = () => {
   return (
     <SafeAreaView style={globalStyles.mainContainer}>
       {isLoading && <ActivityIndicator color={"blue"} size={"large"} />}
-      {!isLoading && (
+      {!isLoading && user && (
       <>
         <Header />
         <View style={styles.container}>
